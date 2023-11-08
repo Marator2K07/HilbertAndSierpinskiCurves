@@ -4,19 +4,20 @@
 #include <QWidget>
 #include <QPen>
 #include <QBrush>
+#include <QPalette>
+#include <QPainter>
 
 class DrawingField : public QWidget
 {
     Q_OBJECT
 
 public:
-    enum Shape {Line, Points};
     explicit DrawingField(QWidget *parent = nullptr);
 
 private:
-    Shape shape;
     QPen pen;
     QBrush brush;
+    QPainter painter;
 
 protected:
     void paintEvent(QPaintEvent *event) override;
