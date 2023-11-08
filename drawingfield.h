@@ -15,11 +15,17 @@ class DrawingField : public QWidget
 public:
     explicit DrawingField(QWidget *parent = nullptr);
 
+    QPoint getCurPenPos() const;
+    void setCurPenPos(QPoint newCurPenPos);
+    void setCurPenPos(int x, int y);
+
 private:
     QPen pen;
     QBrush brush;
     QPainter painter;
     QPoint curPenPos; // поле с текущей позицией пишущей ручки
+
+
 
 protected:
     void paintEvent(QPaintEvent *event) override;

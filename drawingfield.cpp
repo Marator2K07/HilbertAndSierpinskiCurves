@@ -11,6 +11,22 @@ DrawingField::DrawingField(QWidget *parent)
     setAutoFillBackground(true);
 }
 
+QPoint DrawingField::getCurPenPos() const
+{
+    return curPenPos;
+}
+
+void DrawingField::setCurPenPos(QPoint newCurPenPos)
+{
+    curPenPos = newCurPenPos;
+}
+
+void DrawingField::setCurPenPos(int x, int y)
+{
+    curPenPos.setX(x);
+    curPenPos.setY(y);
+}
+
 void DrawingField::paintEvent(QPaintEvent *event)
 {
 
