@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPen>
+#include <QPoint>
 #include <QBrush>
 #include <QPalette>
 #include <QPainter>
@@ -18,6 +19,7 @@ private:
     QPen pen;
     QBrush brush;
     QPainter painter;
+    QPoint curPenPos; // поле с текущей позицией пишущей ручки
 
 protected:
     void paintEvent(QPaintEvent *event) override;
