@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     drawingfield.cpp \
+    hilbertcurve.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     drawingfield.h \
+    hilbertcurve.h \
     mainwindow.h
 
 FORMS += \
