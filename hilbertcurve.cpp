@@ -27,7 +27,22 @@ void HilbertCurve::setLineLenght(int newLineLenght)
 
 void HilbertCurve::typeA(short n)
 {
-
+    typeD(n-1); // возможен переход в скобу типа D
+    // запоминаем линию влево по горизонтали
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() - lineLenght);
+    lines.append(QLine(currentPos, nextPos));
+    typeA(n-1); // возможен переход в скобу типа A
+    // запоминаем линию вниз по вертикали
+    currentPos = nextPos;
+    nextPos.setY(nextPos.y() + lineLenght);
+    lines.append(QLine(currentPos, nextPos));
+    typeA(n-1); // возможен переход в скобу типа A
+    // запоминаем линию вправо по горизонтали
+    currentPos = nextPos;
+    nextPos.setY(nextPos.x() + lineLenght);
+    lines.append(QLine(currentPos, nextPos));
+    typeB(n-1); // возможен переход в скобу типа B
 }
 
 HilbertCurve::HilbertCurve()
