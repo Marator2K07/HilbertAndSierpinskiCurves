@@ -1,6 +1,7 @@
  #ifndef HILBERTCURVE_H
 #define HILBERTCURVE_H
 
+#include <QObject>
 #include <QLine>
 #include <QQueue>
 
@@ -16,8 +17,10 @@
 /// B: C ↑ B → B ↓ A
 /// C: B → C ↑ C ← D
 /// D: A ↓ D ← D ↑ C
-class HilbertCurve
+class HilbertCurve : public QObject
 {
+    Q_OBJECT
+
 private:
     short n; // порядок кривой
     int lineLenght; // длина прямой для составления кривой
@@ -46,7 +49,8 @@ private:
     void typeD(short n);
 
 public:
-    HilbertCurve();
+    explicit HilbertCurve(QObject *parent = nullptr);
+
     short getN() const;
     void setN(short newN);
     QQueue<QLine> getLines() const;
