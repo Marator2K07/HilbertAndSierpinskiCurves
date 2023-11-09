@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "drawingfield.h"
+#include "hilbertcurve.h"
+
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -17,5 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    DrawingField *drawingField;
+    HilbertCurve *hilbertCurve;
 };
 #endif // MAINWINDOW_H

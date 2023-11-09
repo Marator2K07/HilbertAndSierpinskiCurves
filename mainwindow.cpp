@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    drawingField = ui->drawingField; // сделаем ссылку на поле рисования без посредников
+    hilbertCurve = new HilbertCurve();
 }
 
 MainWindow::~MainWindow()
