@@ -91,6 +91,28 @@ void HilbertCurve::typeC(short n)
     }
 }
 
+void HilbertCurve::typeD(short n)
+{
+    if (n > 0) {
+        typeA(n-1); // возможен переход в скобу типа A
+        // запоминаем линию вниз по вертикали
+        currentPos = nextPos;
+        nextPos.setY(nextPos.y() + lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeD(n-1); // возможен переход в скобу типа D
+        // запоминаем линию влево по горизонтали
+        currentPos = nextPos;
+        nextPos.setX(nextPos.x() - lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeD(n-1); // возможен переход в скобу типа D
+        // запоминаем линию вверх по вертикали
+        currentPos = nextPos;
+        nextPos.setY(nextPos.y() - lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeC(n-1); // возможен переход в скобу типа C
+    }
+}
+
 HilbertCurve::HilbertCurve()
 {
     n = 0;
