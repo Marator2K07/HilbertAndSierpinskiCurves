@@ -29,6 +29,11 @@ private:
     /// создает Гильбертову кривую как на схеме
     /// в описании классе (A: D ← A ↓ A → B)
     void typeA(short n);
+    ///
+    /// \brief typeA
+    /// создает Гильбертову кривую как на схеме
+    /// в описании классе (B: C ↑ B → B ↓ A)
+    void typeB(short n);
 
 public:
     HilbertCurve();
