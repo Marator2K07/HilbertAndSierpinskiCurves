@@ -51,21 +51,43 @@ void HilbertCurve::typeB(short n)
 {
     if (n > 0) {
         typeC(n-1); // возможен переход в скобу типа C
-        // запоминаем линию влево по горизонтали
+        // запоминаем линию вверх по вертикали
         currentPos = nextPos;
         nextPos.setY(nextPos.y() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         typeB(n-1); // возможен переход в скобу типа B
-        // запоминаем линию вниз по вертикали
+        // запоминаем линию вправо по горизонтали
         currentPos = nextPos;
         nextPos.setX(nextPos.x() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         typeB(n-1); // возможен переход в скобу типа B
-        // запоминаем линию вправо по горизонтали
+        // запоминаем линию вниз по вертикали
         currentPos = nextPos;
-        nextPos.setY(nextPos.x() + lineLenght);
+        nextPos.setY(nextPos.y() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         typeA(n-1); // возможен переход в скобу типа A
+    }
+}
+
+void HilbertCurve::typeC(short n)
+{
+    if (n > 0) {
+        typeB(n-1); // возможен переход в скобу типа B
+        // запоминаем линию вправо по горизонтали
+        currentPos = nextPos;
+        nextPos.setX(nextPos.x() + lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeC(n-1); // возможен переход в скобу типа C
+        // запоминаем линию вверх по вертикали
+        currentPos = nextPos;
+        nextPos.setY(nextPos.y() - lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeC(n-1); // возможен переход в скобу типа C
+        // запоминаем линию влево по горизонтали
+        currentPos = nextPos;
+        nextPos.setX(nextPos.x() - lineLenght);
+        lines.append(QLine(currentPos, nextPos));
+        typeA(n-1); // возможен переход в скобу типа D
     }
 }
 
