@@ -59,7 +59,12 @@ public:
     /// линии в соотвествующее поле
     void makeCalculation();
 
-
+signals:
+    ///
+    /// \brief newLineReady
+    /// оповещает о том, что очереденая прямая кривой
+    /// готова для использования.
+    void newLineReady(QLine line);
 };
 
 #endif // HILBERTCURVE_H
