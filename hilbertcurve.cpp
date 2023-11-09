@@ -125,5 +125,16 @@ HilbertCurve::HilbertCurve()
 
 void HilbertCurve::makeCalculation()
 {
-
+    // очистка предыдущих вычислений
+    currentPos.setX(0);
+    currentPos.setY(0);
+    nextPos.setX(0);
+    nextPos.setY(0);
+    lines.clear();
+    // сам алгоритм
+    short i = 0;
+    do {
+        i++;
+        typeA(i);
+    } while (i != n);
 }
