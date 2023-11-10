@@ -3,8 +3,9 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QGraphicsLineItem>
 #include <QPen>
-#include <QPoint>
+#include <QPointF>
 #include <QBrush>
 #include <QColor>
 
@@ -16,14 +17,14 @@ public:
     explicit DrawingField(QWidget *parent = nullptr,
                           QGraphicsScene *pScene = nullptr);
 
-    QPoint getCurPenPos() const;
-    void setCurPenPos(QPoint newCurPenPos);
+    QPointF getCurPenPos() const;
+    void setCurPenPos(QPointF newCurPenPos);
     void setCurPenPos(int x, int y);
 
 private:
     QPen pen;
     QBrush brush;
-    QPoint curPenPos; // поле с текущей позицией пишущей ручки
+    QPointF curPenPos; // поле с текущей позицией пишущей ручки
     QGraphicsScene *scene; // текущая сцена отображения элементов
 
 public slots:

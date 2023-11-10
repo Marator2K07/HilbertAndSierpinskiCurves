@@ -3,20 +3,21 @@
 DrawingField::DrawingField(QWidget *parent, QGraphicsScene *pScene)
     : QGraphicsView{pScene, parent}
 {
-    // инициализируем перо
-    curPenPos.setX(this->width()/2);
-    curPenPos.setY(this->height()/2);
     // ставим черный цвет для пера и инициализируем обьект сцены
     pen.setColor(QColor("black"));
-    scene = new QGraphicsScene(this->rect());
+    scene = new QGraphicsScene(QRect(0, 0, 3750, 2550));
+    scene->addRect(scene->sceneRect(), pen, brush);
+    this->setScene(scene);
+    // инициализируем перо
+    curPenPos = scene->sceneRect().center();
 }
 
-QPoint DrawingField::getCurPenPos() const
+QPointF DrawingField::getCurPenPos() const
 {
     return curPenPos;
 }
 
-void DrawingField::setCurPenPos(QPoint newCurPenPos)
+void DrawingField::setCurPenPos(QPointF newCurPenPos)
 {
     curPenPos = newCurPenPos;
 }
@@ -29,5 +30,8 @@ void DrawingField::setCurPenPos(int x, int y)
 
 void DrawingField::drawLine(QLine line)
 {
-
+    QGraphicsLineItem *lineItem = new QGraphicsLineItem(line);
+    lineItem->setPen(pen);
+    lineItem->setPos(curPenPos);
+    scene->addItem(lineItem);
 }
