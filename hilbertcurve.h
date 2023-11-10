@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QLine>
 #include <QQueue>
+#include <QThread>
 
 ///
 /// \brief The HilbertCurve class
@@ -22,6 +23,7 @@ class HilbertCurve : public QObject
     Q_OBJECT
 
 private:
+    long pause; // пауза после нахождения элемента кривой в миллисекундах
     short n; // порядок кривой
     int lineLenght; // длина прямой для составления кривой
     QPoint currentPos; // начало текущей линии
@@ -55,7 +57,9 @@ public:
     void setN(short newN);
     QQueue<QLine> getLines() const;
     int getLineLenght() const;
-    void setLineLenght(int newLineLenght);
+    void setLineLenght(int newLineLenght);    
+
+public slots:
     ///
     /// \brief makeCalculation
     /// исходя из порядка кривой высчитывает
@@ -64,6 +68,10 @@ public:
     void makeCalculation();
 
 signals:
+    ///
+    /// \brief endBuildCurve
+    /// вычисление кривой закончилось
+    void endBuildCurve();
     ///
     /// \brief newLineReady
     /// оповещает о том, что очереденая прямая кривой
