@@ -105,7 +105,7 @@ void HilbertCurve::typeC(short n)
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
         thread()->msleep(pause);
-        typeA(n-1); // возможен переход в скобу типа D
+        typeD(n-1); // возможен переход в скобу типа D
     }
 }
 
