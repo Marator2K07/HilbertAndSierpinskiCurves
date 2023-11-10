@@ -1,19 +1,20 @@
 #ifndef DRAWINGFIELD_H
 #define DRAWINGFIELD_H
 
-#include <QWidget>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include <QPen>
 #include <QPoint>
 #include <QBrush>
-#include <QPalette>
-#include <QPainter>
+#include <QColor>
 
-class DrawingField : public QWidget
+class DrawingField : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    explicit DrawingField(QWidget *parent = nullptr);
+    explicit DrawingField(QWidget *parent = nullptr,
+                          QGraphicsScene *pScene = nullptr);
 
     QPoint getCurPenPos() const;
     void setCurPenPos(QPoint newCurPenPos);
@@ -22,14 +23,11 @@ public:
 private:
     QPen pen;
     QBrush brush;
-    QPainter painter;
     QPoint curPenPos; // поле с текущей позицией пишущей ручки
+    QGraphicsScene *scene; // текущая сцена отображения элементов
 
-
-
-protected:
-    void paintEvent(QPaintEvent *event) override;
-
+public slots:
+    void drawLine(QLine line);
 };
 
 #endif // DRAWINGFIELD_H

@@ -1,14 +1,14 @@
 #include "drawingfield.h"
 
-DrawingField::DrawingField(QWidget *parent)
-    : QWidget{parent}
+DrawingField::DrawingField(QWidget *parent, QGraphicsScene *pScene)
+    : QGraphicsView{pScene, parent}
 {
-    // ставим перо в центр поля
+    // инициализируем перо
     curPenPos.setX(this->width()/2);
     curPenPos.setY(this->height()/2);
-    // остальные инициализации
-    setBackgroundRole(QPalette::Base);
-    setAutoFillBackground(true);
+    // ставим черный цвет для пера и инициализируем обьект сцены
+    pen.setColor(QColor("black"));
+    scene = new QGraphicsScene(this->rect());
 }
 
 QPoint DrawingField::getCurPenPos() const
@@ -27,7 +27,7 @@ void DrawingField::setCurPenPos(int x, int y)
     curPenPos.setY(y);
 }
 
-void DrawingField::paintEvent(QPaintEvent *event)
+void DrawingField::drawLine(QLine line)
 {
 
 }
