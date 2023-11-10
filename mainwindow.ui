@@ -6,23 +6,44 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>600</height>
+    <width>931</width>
+    <height>698</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="DrawingField" name="drawingField" native="true">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>681</width>
-      <height>421</height>
+      <x>0</x>
+      <y>0</y>
+      <width>931</width>
+      <height>771</height>
      </rect>
     </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="DrawingField" name="graphicsView"/>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>200</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -30,7 +51,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>700</width>
+     <width>931</width>
      <height>22</height>
     </rect>
    </property>
@@ -40,9 +61,8 @@
  <customwidgets>
   <customwidget>
    <class>DrawingField</class>
-   <extends>QWidget</extends>
+   <extends>QGraphicsView</extends>
    <header location="global">drawingfield.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
