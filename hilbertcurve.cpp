@@ -34,18 +34,21 @@ void HilbertCurve::typeA(short n)
         nextPos.setX(nextPos.x() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeA(n-1); // возможен переход в скобу типа A
         // запоминаем линию вниз по вертикали
         currentPos = nextPos;
         nextPos.setY(nextPos.y() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeA(n-1); // возможен переход в скобу типа A
         // запоминаем линию вправо по горизонтали
         currentPos = nextPos;
         nextPos.setX(nextPos.x() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeB(n-1); // возможен переход в скобу типа B
     }
 }
@@ -59,18 +62,21 @@ void HilbertCurve::typeB(short n)
         nextPos.setY(nextPos.y() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeB(n-1); // возможен переход в скобу типа B
         // запоминаем линию вправо по горизонтали
         currentPos = nextPos;
         nextPos.setX(nextPos.x() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeB(n-1); // возможен переход в скобу типа B
         // запоминаем линию вниз по вертикали
         currentPos = nextPos;
         nextPos.setY(nextPos.y() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeA(n-1); // возможен переход в скобу типа A
     }
 }
@@ -84,18 +90,21 @@ void HilbertCurve::typeC(short n)
         nextPos.setX(nextPos.x() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeC(n-1); // возможен переход в скобу типа C
         // запоминаем линию вверх по вертикали
         currentPos = nextPos;
         nextPos.setY(nextPos.y() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeC(n-1); // возможен переход в скобу типа C
         // запоминаем линию влево по горизонтали
         currentPos = nextPos;
         nextPos.setX(nextPos.x() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeA(n-1); // возможен переход в скобу типа D
     }
 }
@@ -109,18 +118,21 @@ void HilbertCurve::typeD(short n)
         nextPos.setY(nextPos.y() + lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeD(n-1); // возможен переход в скобу типа D
         // запоминаем линию влево по горизонтали
         currentPos = nextPos;
         nextPos.setX(nextPos.x() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeD(n-1); // возможен переход в скобу типа D
         // запоминаем линию вверх по вертикали
         currentPos = nextPos;
         nextPos.setY(nextPos.y() - lineLenght);
         lines.append(QLine(currentPos, nextPos));
         emit newLineReady(lines.dequeue()); // сигналим, что можно рисовать эту линию
+        thread()->msleep(pause);
         typeC(n-1); // возможен переход в скобу типа C
     }
 }
@@ -128,7 +140,8 @@ void HilbertCurve::typeD(short n)
 HilbertCurve::HilbertCurve(QObject *parent) :
     QObject{parent} {
     n = 0;
-    lineLenght = 55;
+    pause = 32;
+    lineLenght = 0;
     currentPos.setX(0);
     currentPos.setY(0);
     nextPos.setX(0);
@@ -137,16 +150,13 @@ HilbertCurve::HilbertCurve(QObject *parent) :
 
 void HilbertCurve::makeCalculation()
 {
-    // очистка предыдущих вычислений
+    // подготовка
+    lineLenght = 16;
     currentPos.setX(0);
     currentPos.setY(0);
     nextPos.setX(0);
     nextPos.setY(0);
-    lines.clear();
-    // сам алгоритм
-    short i = 0;
-    do {
-        i++;
-        typeA(i);
-    } while (i != n);
+    lines.clear();    
+    typeA(n); // сам алгоритм
+    emit endBuildCurve();
 }
