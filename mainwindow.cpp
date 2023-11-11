@@ -6,6 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // инициализируем надписи с быстрым выбором и ставим им "приятелей"
+    ui->curveOrderLabel->setText("&Порядок кривой:");
+    ui->curveOrderLabel->setBuddy(ui->curveOrderValue);
+    ui->initialCurveLenghtLabel->setText("Изначальный &размер кривой:");
+    ui->initialCurveLenghtLabel->setBuddy(ui->initialCurveLenghtValue);
+    // остальная инициализация
     drawingField = ui->graphicsView; // сделаем ссылку на поле отображения без посредников
     hilbertCurve = new HilbertCurve;
     // при каждом новом элементе кривой он будет появляться на представлении
