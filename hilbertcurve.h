@@ -25,6 +25,7 @@ class HilbertCurve : public QObject
 private:
     long pause; // пауза после нахождения элемента кривой в миллисекундах
     short n; // порядок кривой
+    int initialLenght; // изначальная стартовая длина прямой для кривой
     int lineLenght; // длина прямой для составления кривой
     QPoint currentPos; // начало текущей линии
     QPoint nextPos; // конец текущей линии

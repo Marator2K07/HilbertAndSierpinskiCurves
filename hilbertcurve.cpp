@@ -141,7 +141,7 @@ HilbertCurve::HilbertCurve(QObject *parent) :
     QObject{parent} {
     n = 0;
     pause = 32;
-    lineLenght = 0;
+    initialLenght = 128;
     currentPos.setX(0);
     currentPos.setY(0);
     nextPos.setX(0);
@@ -151,12 +151,13 @@ HilbertCurve::HilbertCurve(QObject *parent) :
 void HilbertCurve::makeCalculation()
 {
     // подготовка
-    lineLenght = 16;
+    lineLenght = initialLenght / n; // чем больше порядок кривой - тем меньше узор
     currentPos.setX(0);
     currentPos.setY(0);
     nextPos.setX(0);
     nextPos.setY(0);
     lines.clear();    
     typeA(n); // сам алгоритм
+    // даем сигнал потоку, что можно заканчивать
     emit endBuildCurve();
 }
