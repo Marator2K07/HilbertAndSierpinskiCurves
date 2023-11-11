@@ -57,8 +57,8 @@ public:
     short getN() const;
     void setN(short newN);
     QQueue<QLine> getLines() const;
-    int getLineLenght() const;
-    void setLineLenght(int newLineLenght);    
+    int getInitialLenght() const;
+    void setInitialLenght(int newInitialLenght);
 
 public slots:
     ///
