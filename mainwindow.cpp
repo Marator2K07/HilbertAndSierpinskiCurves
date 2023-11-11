@@ -11,22 +11,25 @@ MainWindow::MainWindow(QWidget *parent)
     ui->curveOrderLabel->setBuddy(ui->curveOrderValue);
     ui->initialCurveLenghtLabel->setText("Изначальный &размер кривой:");
     ui->initialCurveLenghtLabel->setBuddy(ui->initialCurveLenghtValue);
-    // остальная инициализация
+    // инициализируем поля
     drawingField = ui->graphicsView; // сделаем ссылку на поле отображения без посредников
     hilbertCurve = new HilbertCurve;
+    hilbertCurve->setN(ui->curveOrderValue->value());
+    hilbertCurve->setInitialLenght(ui->initialCurveLenghtValue->value());
     // при каждом новом элементе кривой он будет появляться на представлении
     connect(hilbertCurve, SIGNAL(newLineReady(QLine)),
             drawingField, SLOT(drawLine(QLine)));
-    // сразу пытаемся задать порядок кривой и, собственно,
-    // вычислить ее; причем кривая будет работать в отдельном потоке!
+    // вычисление кривой происходит в отдельном потоке, причем
+    // прорисовка идет постепенно, а не сразу, по нажатию кнопки
     QThread *threadAnother = new QThread(this);
     hilbertCurve->moveToThread(threadAnother);
     connect(threadAnother, SIGNAL(started()),
             hilbertCurve, SLOT(makeCalculation()));
     connect(hilbertCurve, SIGNAL(endBuildCurve()),
             threadAnother, SLOT(quit()));
-    hilbertCurve->setN(5);
-    threadAnother->start();
+    connect(ui->calcCurve, SIGNAL(clicked()),
+            threadAnother, SLOT(start()));
+
 }
 
 MainWindow::~MainWindow()
