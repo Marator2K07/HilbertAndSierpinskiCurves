@@ -15,14 +15,14 @@ QQueue<QLine> HilbertCurve::getLines() const
     return lines;
 }
 
-int HilbertCurve::getLineLenght() const
+int HilbertCurve::getInitialLenght() const
 {
-    return lineLenght;
+    return initialLenght;
 }
 
-void HilbertCurve::setLineLenght(int newLineLenght)
+void HilbertCurve::setInitialLenght(int newInitialLenght)
 {
-    lineLenght = newLineLenght;
+    initialLenght = newInitialLenght;
 }
 
 void HilbertCurve::typeA(short n)
