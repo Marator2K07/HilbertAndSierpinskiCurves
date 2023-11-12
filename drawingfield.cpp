@@ -35,3 +35,8 @@ void DrawingField::drawLine(QLine line)
     lineItem->setPos(curPenPos);
     scene->addItem(lineItem);
 }
+
+void DrawingField::clean()
+{
+    scene->clear();
+}
