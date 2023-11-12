@@ -161,3 +161,8 @@ void HilbertCurve::makeCalculation()
     // даем сигнал потоку, что можно заканчивать
     emit endBuildCurve();
 }
+
+void HilbertCurve::changeN(int value)
+{
+    setN(value);
+}
