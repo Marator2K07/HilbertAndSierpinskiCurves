@@ -172,7 +172,12 @@ void HilbertCurve::nDown()
     setN(getN()-1);
 }
 
-void HilbertCurve::initialLenght(int value)
+void HilbertCurve::initialLenghtUp()
 {
-    setInitialLenght(value);
+    setInitialLenght(getInitialLenght()+1);
+}
+
+void HilbertCurve::initialLenghtDown()
+{
+    setInitialLenght(getInitialLenght()-1);
 }
