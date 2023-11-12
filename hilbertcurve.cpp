@@ -162,7 +162,12 @@ void HilbertCurve::makeCalculation()
     emit endBuildCurve();
 }
 
-void HilbertCurve::changeN(int value)
+void HilbertCurve::changeN(short value)
 {
     setN(value);
+}
+
+void HilbertCurve::initialLenght(int value)
+{
+    setInitialLenght(value);
 }
