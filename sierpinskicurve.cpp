@@ -110,6 +110,36 @@ void SierpinskiCurve::typeC(short n)
     }
 }
 
+void SierpinskiCurve::typeD(short n)
+{
+    if (n > 0) {
+        typeD(n-1); // возможен переход в этот же тип
+        // запоминаем линию по диагонали вверх и вправо 🡥
+        currentPos = nextPos;
+        nextPos.setX(nextPos.x() + lineLenght/(sqrt(2)));
+        nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
+        lines.append(QLineF(currentPos, nextPos));
+        emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+        thread()->sleep(pause); // есть задержка для наглядности
+        typeA(n-1); // возможен переход в тип A
+        // запоминаем линию по вертикали вверх ↑
+        currentPos = nextPos;
+        nextPos.setY(nextPos.y() - lineLenght * 2);
+        lines.append(QLineF(currentPos, nextPos));
+        emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+        thread()->sleep(pause); // есть задержка для наглядности
+        typeC(n-1); // возможен переход в тип C
+        // запоминаем линию по диагонали влево и вверх 🡤
+        currentPos = nextPos;
+        nextPos.setX(nextPos.x() - lineLenght/(sqrt(2)));
+        nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
+        lines.append(QLineF(currentPos, nextPos));
+        emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+        thread()->sleep(pause); // есть задержка для наглядности
+        typeD(n-1); // возможен переход в тип D
+    }
+}
+
 SierpinskiCurve::SierpinskiCurve(QObject *parent)
     : QObject{parent}
 {

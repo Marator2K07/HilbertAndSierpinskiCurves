@@ -47,6 +47,11 @@ private:
     /// создает кривую Серпинского как на схеме и
     /// в описании класса (C: C 🡤 D ← B 🡧 C)
     void typeC(short n) override;
+    ///
+    /// \brief typeD
+    /// создает кривую Серпинского как на схеме и
+    /// в описании класса (D: D 🡥 A ↑ C 🡤 D)
+    void typeD(short n) override;
 
 public:
     explicit SierpinskiCurve(QObject *parent = nullptr);
