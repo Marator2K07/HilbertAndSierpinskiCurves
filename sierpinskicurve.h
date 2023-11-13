@@ -3,6 +3,8 @@
 
 #include "irecursivecurve.h"
 
+using namespace  std;
+
 ///
 /// \brief The SierpinskiCurve class
 /// представляет возможности для нахождения
@@ -45,7 +47,15 @@ public:
     void setInitialLenght(int newInitialLenght);
 
 signals:
-
+    ///
+    /// \brief endBuildCurve
+    /// вычисление кривой закончилось
+    void endBuildCurve();
+    ///
+    /// \brief newLineReady
+    /// оповещает о том, что очереденая прямая кривой
+    /// готова для использования.
+    void newLineReady(QLineF line);
 };
 
 #endif // SIERPINSKICURVE_H
