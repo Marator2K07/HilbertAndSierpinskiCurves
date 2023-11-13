@@ -12,12 +12,15 @@ SOURCES += \
     drawingfield.cpp \
     hilbertcurve.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sierpinskicurve.cpp
 
 HEADERS += \
     drawingfield.h \
     hilbertcurve.h \
-    mainwindow.h
+    irecursivecurve.h \
+    mainwindow.h \
+    sierpinskicurve.h
 
 FORMS += \
     mainwindow.ui
