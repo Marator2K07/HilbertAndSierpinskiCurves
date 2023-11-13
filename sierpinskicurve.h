@@ -28,7 +28,7 @@ private:
     double lineLenght; // длина прямой для составления кривой
     QPointF currentPos; // начало текущей линии
     QPointF nextPos; // конец текущей линии
-    QQueue<QLine> lines; // очередь из прямых
+    QQueue<QLineF> lines; // очередь из прямых
 
     ///
     /// \brief typeA
