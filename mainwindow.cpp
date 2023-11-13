@@ -19,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     // при каждом новом элементе кривой он будет появляться на представлении
     connect(hilbertCurve, SIGNAL(newLineReady(QLine)),
             drawingField, SLOT(drawLine(QLine)));
+    // связываем спинБоксы со слотами Гильбертовой кривой
+    connect(ui->curveOrderValue, SIGNAL(valueChanged(int)),
+            hilbertCurve, SLOT(changeN(int)));
+    connect(ui->initialCurveLenghtValue, SIGNAL(valueChanged(int)),
+            hilbertCurve, SLOT(changeInitialLenght(int)));
     // вычисление кривой происходит в отдельном потоке, причем
     // прорисовка идет постепенно, а не сразу, по нажатию кнопки
     QThread *threadAnother = new QThread(this);
@@ -29,7 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
             threadAnother, SLOT(quit()));
     connect(ui->calcCurve, SIGNAL(clicked()),
             threadAnother, SLOT(start()));
-
+    connect(ui->calcCurve, SIGNAL(clicked()),
+            drawingField, SLOT(clean()));
 }
 
 MainWindow::~MainWindow()
