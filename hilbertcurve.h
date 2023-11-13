@@ -1,10 +1,7 @@
  #ifndef HILBERTCURVE_H
 #define HILBERTCURVE_H
 
-#include <QObject>
-#include <QLine>
-#include <QQueue>
-#include <QThread>
+#include "irecursivecurve.h"
 
 ///
 /// \brief The HilbertCurve class
@@ -18,7 +15,8 @@
 /// B: C ↑ B → B ↓ A
 /// C: B → C ↑ C ← D
 /// D: A ↓ D ← D ↑ C
-class HilbertCurve : public QObject
+class HilbertCurve : public QObject,
+                     public IRecursiveCurve
 {
     Q_OBJECT
 
@@ -30,26 +28,27 @@ private:
     QPoint currentPos; // начало текущей линии
     QPoint nextPos; // конец текущей линии
     QQueue<QLine> lines; // из каких прямых состоит данная кривая
+
     ///
     /// \brief typeA
-    /// создает Гильбертову кривую как на схеме
+    /// создает Гильбертову кривую как на схеме и
     /// в описании классе (A: D ← A ↓ A → B)
-    void typeA(short n);
+    void typeA(short n) override;
     ///
-    /// \brief typeA
-    /// создает Гильбертову кривую как на схеме
+    /// \brief typeB
+    /// создает Гильбертову кривую как на схеме и
     /// в описании классе (B: C ↑ B → B ↓ A)
-    void typeB(short n);
+    void typeB(short n) override;
     ///
-    /// \brief typeA
-    /// создает Гильбертову кривую как на схеме
+    /// \brief typeC
+    /// создает Гильбертову кривую как на схеме и
     /// в описании классе (C: B → C ↑ C ← D)
-    void typeC(short n);
+    void typeC(short n) override;
     ///
-    /// \brief typeA
-    /// создает Гильбертову кривую как на схеме
+    /// \brief typeD
+    /// создает Гильбертову кривую как на схеме и
     /// в описании классе (D: A ↓ D ← D ↑ C)
-    void typeD(short n);
+    void typeD(short n) override;
 
 public:
     explicit HilbertCurve(QObject *parent = nullptr);
@@ -61,22 +60,9 @@ public:
     void setInitialLenght(int newInitialLenght);
 
 public slots:
-    ///
-    /// \brief makeCalculation
-    /// исходя из порядка кривой высчитывает
-    /// общий рисунок, записывая полученные
-    /// линии в соотвествующее поле
-    void makeCalculation();
-    ///
-    /// \brief changeN
-    /// слот изменения порядка кривой для связки
-    /// с графическим интерфейсом приложения
-    void changeN(int value);
-    ///
-    /// \brief changeInitialLenght
-    /// изменение инициализационной главной длины
-    /// для связки с графическим интерфейсом приложения
-    void changeInitialLenght(int value);
+    void makeCalculation() override; // описание в интерфейсе
+    void changeN(int value) override; // описание в интерфейсе
+    void changeInitialLenght(int value) override; // описание в интерфейсе
 
 signals:
     ///
