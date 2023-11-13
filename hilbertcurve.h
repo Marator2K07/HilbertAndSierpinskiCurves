@@ -68,25 +68,15 @@ public slots:
     /// линии в соотвествующее поле
     void makeCalculation();
     ///
-    /// \brief nUp
-    /// слот повышения порядка кривой на 1 для связки
+    /// \brief changeN
+    /// слот изменения порядка кривой для связки
     /// с графическим интерфейсом приложения
-    void nUp();
+    void changeN(int value);
     ///
-    /// \brief nDown
-    /// слот понижения порядка кривой на 1 для связки
-    /// с графическим интерфейсом приложения
-    void nDown();
-    ///
-    /// \brief initialLenghtUp
-    /// повышение инициализационной главной длины кривой на 1
+    /// \brief changeInitialLenght
+    /// изменение инициализационной главной длины
     /// для связки с графическим интерфейсом приложения
-    void initialLenghtUp();
-    ///
-    /// \brief initialLenghtDown
-    /// понижение инициализационной главной длины кривой на 1
-    /// для связки с графическим интерфейсом приложения
-    void initialLenghtDown();
+    void changeInitialLenght(int value);
 
 signals:
     ///
