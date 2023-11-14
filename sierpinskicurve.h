@@ -32,6 +32,8 @@ private:
     QPointF nextPos; // конец текущей линии
     QQueue<QLineF> lines; // очередь из прямых
 
+    // IRecursiveCurve interface
+private:
     ///
     /// \brief typeA
     /// создает кривую Серпинского как на схеме и
@@ -71,6 +73,12 @@ signals:
     /// оповещает о том, что очереденая прямая кривой
     /// готова для использования.
     void newLineReady(QLineF line);
+
+    // IRecursiveCurve interface
+public:
+    void makeCalculation() override;
+    void changeN(int value) override;
+    void changeInitialLenght(int value) override;
 };
 
 #endif // SIERPINSKICURVE_H
