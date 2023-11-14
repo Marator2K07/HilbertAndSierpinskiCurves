@@ -47,6 +47,18 @@ public:
     /// слот изменения инициализационной главной длины кривой
     /// для связки с графическим интерфейсом приложения
     virtual void changeInitialLenght(int value) = 0;
+
+signals:
+    ///
+    /// \brief endBuildCurve
+    /// вычисление кривой закончилось
+    virtual void endBuildCurve() = 0;
+    ///
+    /// \brief newLineReady
+    /// оповещает о том, что очереденая прямая кривой
+    /// готова для использования.
+    virtual void newLineReady(QLine line) = 0;
+
 };
 
 #endif // IRECURSIVECURVE_H
