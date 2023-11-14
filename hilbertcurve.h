@@ -29,6 +29,8 @@ private:
     QPoint nextPos; // конец текущей линии
     QQueue<QLine> lines; // из каких прямых состоит данная кривая
 
+    // IRecursiveCurve interface
+private:
     ///
     /// \brief typeA
     /// создает Гильбертову кривую как на схеме и
@@ -59,21 +61,16 @@ public:
     int getInitialLenght() const;
     void setInitialLenght(int newInitialLenght);
 
+    // IRecursiveCurve interface
 public slots:
-    void makeCalculation() override; // описание в интерфейсе
-    void changeN(int value) override; // описание в интерфейсе
-    void changeInitialLenght(int value) override; // описание в интерфейсе
+    void makeCalculation() override;
+    void changeN(int value) override;
+    void changeInitialLenght(int value) override;
 
+    // IRecursiveCurve interface
 signals:
-    ///
-    /// \brief endBuildCurve
-    /// вычисление кривой закончилось
-    void endBuildCurve();
-    ///
-    /// \brief newLineReady
-    /// оповещает о том, что очереденая прямая кривой
-    /// готова для использования.
-    void newLineReady(QLine line);
+    void endBuildCurve() override;
+    void newLineReady(QLine line) override;
 };
 
 #endif // HILBERTCURVE_H
