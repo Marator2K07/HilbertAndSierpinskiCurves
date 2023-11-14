@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QLine>
+#include <QLineF>
 #include <QQueue>
 #include <QThread>
 
@@ -55,9 +56,14 @@ signals:
     virtual void endBuildCurve() = 0;
     ///
     /// \brief newLineReady
-    /// оповещает о том, что очереденая прямая кривой
+    /// оповещает о том, что очередная прямая кривой
     /// готова для использования.
     virtual void newLineReady(QLine line) = 0;
+    ///
+    /// \brief newLineFReady
+    /// оповещает о том, что прямая с повышенной
+    /// точностью координат готова
+    virtual void newLineFReady(QLineF line) = 0;
 
 };
 
