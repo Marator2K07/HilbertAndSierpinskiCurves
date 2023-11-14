@@ -75,7 +75,7 @@ signals:
     void newLineReady(QLineF line);
 
     // IRecursiveCurve interface
-public:
+public slots:
     void makeCalculation() override;
     void changeN(int value) override;
     void changeInitialLenght(int value) override;
