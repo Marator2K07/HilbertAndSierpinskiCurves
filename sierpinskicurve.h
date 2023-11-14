@@ -61,22 +61,17 @@ public:
     short getN() const;
     int getInitialLenght() const;
 
-signals:
-    ///
-    /// \brief endBuildCurve
-    /// вычисление кривой закончилось
-    void endBuildCurve();
-    ///
-    /// \brief newLineReady
-    /// оповещает о том, что очереденая прямая кривой
-    /// готова для использования.
-    void newLineReady(QLineF line);
-
     // IRecursiveCurve interface
 public slots:
     void makeCalculation() override;
     void changeN(int value) override;
     void changeInitialLenght(int value) override;
+
+    // IRecursiveCurve interface
+signals:
+    void endBuildCurve() override;
+    void newLineReady(QLine line) override;
+    void newLineFReady(QLineF line) override;
 };
 
 #endif // SIERPINSKICURVE_H

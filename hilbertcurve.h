@@ -71,6 +71,7 @@ public slots:
 signals:
     void endBuildCurve() override;
     void newLineReady(QLine line) override;
+    void newLineFReady(QLineF line) override;
 };
 
 #endif // HILBERTCURVE_H
