@@ -59,9 +59,7 @@ public:
     explicit SierpinskiCurve(QObject *parent = nullptr);
 
     short getN() const;
-    void setN(short newN);
     int getInitialLenght() const;
-    void setInitialLenght(int newInitialLenght);
 
 signals:
     ///

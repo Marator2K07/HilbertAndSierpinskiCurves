@@ -5,19 +5,9 @@ short SierpinskiCurve::getN() const
     return n;
 }
 
-void SierpinskiCurve::setN(short newN)
-{
-    n = newN;
-}
-
 int SierpinskiCurve::getInitialLenght() const
 {
     return initialLenght;
-}
-
-void SierpinskiCurve::setInitialLenght(int newInitialLenght)
-{
-    initialLenght = newInitialLenght;
 }
 
 void SierpinskiCurve::makeCalculation()
@@ -69,6 +59,16 @@ void SierpinskiCurve::makeCalculation()
 
     // даем сигнал потоку, что можно заканчивать
     emit endBuildCurve();
+}
+
+void SierpinskiCurve::changeN(int value)
+{
+    n = value;
+}
+
+void SierpinskiCurve::changeInitialLenght(int value)
+{
+    initialLenght = value;
 }
 
 void SierpinskiCurve::typeA(short n)
