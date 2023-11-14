@@ -143,5 +143,11 @@ void SierpinskiCurve::typeD(short n)
 SierpinskiCurve::SierpinskiCurve(QObject *parent)
     : QObject{parent}
 {
-
+    n = 0;
+    pause = 32;
+    initialLenght = 128;
+    currentPos.setX(0.0);
+    currentPos.setY(0.0);
+    nextPos.setX(0.0);
+    nextPos.setY(0.0);
 }
