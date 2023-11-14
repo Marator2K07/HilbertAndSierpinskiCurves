@@ -20,6 +20,57 @@ void SierpinskiCurve::setInitialLenght(int newInitialLenght)
     initialLenght = newInitialLenght;
 }
 
+void SierpinskiCurve::makeCalculation()
+{
+    // подготовка
+    lineLenght = initialLenght / 2 / n; // чем больше порядок кривой - тем меньше узор
+    currentPos.setX(0.0);
+    currentPos.setY(0.0);
+    nextPos.setX(0.0);
+    nextPos.setY(0.0);
+    lines.clear();
+
+    // сам алгоритм начинается отсюда
+    typeA(n);
+    // запоминаем линию по диагонали вниз и вправо 🡦
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() + lineLenght/(sqrt(2)));
+    nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
+    lines.append(QLineF(currentPos, nextPos));
+    emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+    thread()->sleep(pause); // есть задержка для наглядности
+
+    typeB(n);
+    // запоминаем линию по диагонали вниз и влево 🡧
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() - lineLenght/(sqrt(2)));
+    nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
+    lines.append(QLineF(currentPos, nextPos));
+    emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+    thread()->sleep(pause); // есть задержка для наглядности
+
+    typeC(n);
+    // запоминаем линию по диагонали вверх и влево 🡤
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() - lineLenght/(sqrt(2)));
+    nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
+    lines.append(QLineF(currentPos, nextPos));
+    emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+    thread()->sleep(pause); // есть задержка для наглядности
+
+    typeD(n);
+    // запоминаем линию по диагонали вверх и вправо 🡥
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() + lineLenght/(sqrt(2)));
+    nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
+    lines.append(QLineF(currentPos, nextPos));
+    emit newLineReady(lines.dequeue()); // сигнализируем о готовности рисовать
+    thread()->sleep(pause); // есть задержка для наглядности
+
+    // даем сигнал потоку, что можно заканчивать
+    emit endBuildCurve();
+}
+
 void SierpinskiCurve::typeA(short n)
 {
     if (n > 0) {
