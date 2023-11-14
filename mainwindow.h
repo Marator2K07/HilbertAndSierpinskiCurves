@@ -3,6 +3,7 @@
 
 #include "drawingfield.h"
 #include "hilbertcurve.h"
+#include "sierpinskicurve.h"
 
 #include <QMainWindow>
 
@@ -21,6 +22,9 @@ public:
 private:
     Ui::MainWindow *ui;
     DrawingField *drawingField;
+
+    IRecursiveCurve *currentCurve;
     HilbertCurve *hilbertCurve;
+    SierpinskiCurve *sierpinskiCurve;
 };
 #endif // MAINWINDOW_H
