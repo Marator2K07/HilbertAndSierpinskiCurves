@@ -5,24 +5,9 @@ short HilbertCurve::getN() const
     return n;
 }
 
-void HilbertCurve::setN(short newN)
-{
-    n = newN;
-}
-
-QQueue<QLine> HilbertCurve::getLines() const
-{
-    return lines;
-}
-
 int HilbertCurve::getInitialLenght() const
 {
     return initialLenght;
-}
-
-void HilbertCurve::setInitialLenght(int newInitialLenght)
-{
-    initialLenght = newInitialLenght;
 }
 
 void HilbertCurve::typeA(short n)
@@ -164,10 +149,10 @@ void HilbertCurve::makeCalculation()
 
 void HilbertCurve::changeN(int value)
 {
-    setN(value);
+    n = value;
 }
 
 void HilbertCurve::changeInitialLenght(int value)
 {
-    setInitialLenght(value);
+    initialLenght = value;
 }

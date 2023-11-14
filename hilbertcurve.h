@@ -56,10 +56,7 @@ public:
     explicit HilbertCurve(QObject *parent = nullptr);
 
     short getN() const;
-    void setN(short newN);
-    QQueue<QLine> getLines() const;
     int getInitialLenght() const;
-    void setInitialLenght(int newInitialLenght);
 
     // IRecursiveCurve interface
 public slots:
