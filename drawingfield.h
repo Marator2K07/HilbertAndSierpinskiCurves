@@ -29,6 +29,7 @@ private:
 
 public slots:
     void drawLine(QLine line);
+    void drawFLine(QLineF line);
     void clean(); // слот для чистки текущей сцены
 };
 

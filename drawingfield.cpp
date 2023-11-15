@@ -36,6 +36,14 @@ void DrawingField::drawLine(QLine line)
     scene->addItem(lineItem);
 }
 
+void DrawingField::drawFLine(QLineF line)
+{
+    QGraphicsLineItem *lineItem = new QGraphicsLineItem(line);
+    lineItem->setPen(pen);
+    lineItem->setPos(curPenPos);
+    scene->addItem(lineItem);
+}
+
 void DrawingField::clean()
 {
     scene->clear();
