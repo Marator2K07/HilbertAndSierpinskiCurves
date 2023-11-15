@@ -11,9 +11,21 @@ int ComboBoxModel::rowCount(const QModelIndex &) const
     return values->count();
 }
 
-IRecursiveCurve *ComboBoxModel::curve(const QModelIndex &index) const
+QVariant ComboBoxModel::data(const QModelIndex &index, int role) const
 {
-    IRecursiveCurve *curve;
-    curve = this->values->value(index.row()).second;
-    return curve;
+    QVariant value;
+
+    switch (role) {
+    case Qt::DisplayRole: //string
+        value = this->values->value(index.row()).first;
+        break;
+    case Qt::UserRole: //data
+        value = QVariant::fromValue(this->values->value(index.row()).second);
+        break;
+    default:
+
+        break;
+    }
+
+    return value;
 }

@@ -10,9 +10,11 @@ class ComboBoxModel : public QAbstractListModel
 {
 public:
     explicit ComboBoxModel(QObject *parent = nullptr);
-    int rowCount(const QModelIndex &) const;
-    // вернуть элемент модели (определенную кривую)
-    IRecursiveCurve *curve(const QModelIndex &index) const;
+
+    // QAbstractItemModel interface
+public:
+    int rowCount(const QModelIndex &) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
 private:
     // представление модели в виде списка пар элементов
