@@ -63,3 +63,17 @@ void MainWindow::turnOnHilbertCurve()
     disconnect(sierpinskiCurve, SIGNAL(endBuildCurve()),
                threadWithCurve, SLOT(quit()));
 }
+
+void MainWindow::turnOnSierpinskiCurve()
+{
+    // включаем кривую Серпинского в вычисления
+    connect(threadWithCurve, SIGNAL(started()),
+            sierpinskiCurve, SLOT(makeCalculation()));
+    connect(sierpinskiCurve, SIGNAL(endBuildCurve()),
+            threadWithCurve, SLOT(quit()));
+    // выключаем Гильбертову кривую из вычислений
+    disconnect(threadWithCurve, SIGNAL(started()),
+               hilbertCurve, SLOT(makeCalculation()));
+    disconnect(hilbertCurve, SIGNAL(endBuildCurve()),
+               threadWithCurve, SLOT(quit()));
+}
