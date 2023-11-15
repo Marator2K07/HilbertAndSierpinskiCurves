@@ -15,7 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
     drawingField = ui->graphicsView; // сделаем ссылку на поле отображения без посредников
     hilbertCurve = new HilbertCurve;
     sierpinskiCurve = new SierpinskiCurve;
-     // о умолчанию выбрана Гильбертова кривая
+    // заносим данные о кривых в комбоБокс через класс нашей модели!
+    ComboBoxModel *model = new ComboBoxModel();
+    ui->currentCurve->setModel(model);
+    model->append("Гильбертова кривая", hilbertCurve);
+    model->append("кривая Серпинского", sierpinskiCurve);
+    // о умолчанию выбрана Гильбертова кривая
+    ui->currentCurve->setCurrentIndex(0);
     currentCurve = hilbertCurve;
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());

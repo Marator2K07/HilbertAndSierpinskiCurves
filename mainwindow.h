@@ -4,6 +4,7 @@
 #include "drawingfield.h"
 #include "hilbertcurve.h"
 #include "sierpinskicurve.h"
+#include "comboboxmodel.h"
 
 #include <QMainWindow>
 
