@@ -23,8 +23,17 @@ private:
     Ui::MainWindow *ui;
     DrawingField *drawingField;
 
+    QThread *threadWithCurve;
     IRecursiveCurve *currentCurve;
     HilbertCurve *hilbertCurve;
     SierpinskiCurve *sierpinskiCurve;
+
+private:
+    ///
+    /// \brief turnOnHilbertCurve
+    /// включение кривой в расчет представления,
+    /// то есть коннектим Гильбертову кривую и дисконнектим
+    /// остальные (кривую Серпинского)
+    void turnOnHilbertCurve();
 };
 #endif // MAINWINDOW_H

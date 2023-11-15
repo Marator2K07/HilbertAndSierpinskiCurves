@@ -35,15 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
             sierpinskiCurve, SLOT(changeInitialLenght(int)));
     // вычисление кривой происходит в отдельном потоке, причем
     // прорисовка идет постепенно, а не сразу, по нажатию кнопки
-    QThread *threadAnother = new QThread(this);
-    hilbertCurve->moveToThread(threadAnother);
-    sierpinskiCurve->moveToThread(threadAnother);
-    connect(threadAnother, SIGNAL(started()),
-            hilbertCurve, SLOT(makeCalculation()));
-    connect(hilbertCurve, SIGNAL(endBuildCurve()),
-            threadAnother, SLOT(quit()));
+    threadWithCurve = new QThread(this);
+    hilbertCurve->moveToThread(threadWithCurve);
+    sierpinskiCurve->moveToThread(threadWithCurve);
+    turnOnHilbertCurve(); // теперь подключаем слоты через отдельный метод
     connect(ui->calcCurve, SIGNAL(clicked()),
-            threadAnother, SLOT(start()));
+            threadWithCurve, SLOT(start()));
     connect(ui->calcCurve, SIGNAL(clicked()),
             drawingField, SLOT(clean()));
 }
@@ -51,4 +48,18 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::turnOnHilbertCurve()
+{
+    // включаем Гильбертову кривую в вычисления
+    connect(threadWithCurve, SIGNAL(started()),
+            hilbertCurve, SLOT(makeCalculation()));
+    connect(hilbertCurve, SIGNAL(endBuildCurve()),
+            threadWithCurve, SLOT(quit()));
+    // выключаем кривую Серпинского из вычислений
+    disconnect(threadWithCurve, SIGNAL(started()),
+               sierpinskiCurve, SLOT(makeCalculation()));
+    disconnect(sierpinskiCurve, SIGNAL(endBuildCurve()),
+               threadWithCurve, SLOT(quit()));
 }
