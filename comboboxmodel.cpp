@@ -6,6 +6,16 @@ ComboBoxModel::ComboBoxModel(QObject *parent)
     values = new QList<QPair<QString, IRecursiveCurve*>>();
 }
 
+void ComboBoxModel::append(QString key, IRecursiveCurve *value)
+{
+    int newRowIndex = this->values->count()+1;
+    // прежде чем добавить элемент нужно вызвать beginInsertRows
+    // и при окончании добавления - соотвественно вызывать endInsertRows
+    this->beginInsertRows(QModelIndex(), newRowIndex, newRowIndex);
+        values->append(QPair<QString, IRecursiveCurve*>(key, value));
+    endInsertRows();
+}
+
 int ComboBoxModel::rowCount(const QModelIndex &) const
 {
     return values->count();

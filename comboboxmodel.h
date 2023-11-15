@@ -10,6 +10,7 @@ class ComboBoxModel : public QAbstractListModel
 {
 public:
     explicit ComboBoxModel(QObject *parent = nullptr);
+    void append(QString key, IRecursiveCurve *value);
 
     // QAbstractItemModel interface
 public:
