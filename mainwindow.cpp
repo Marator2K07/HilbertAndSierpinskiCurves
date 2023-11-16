@@ -16,15 +16,19 @@ MainWindow::MainWindow(QWidget *parent)
     hilbertCurve = new HilbertCurve;
     sierpinskiCurve = new SierpinskiCurve;
     // заносим данные о кривых в комбоБокс через класс нашей модели!
-    ComboBoxModel *model = new ComboBoxModel();
-    ui->currentCurve->setModel(model);
+    RecursiveCurvesModel *model = new RecursiveCurvesModel();
+    ui->currentCurveComboBox->setModel(model);
     model->append("Гильбертова кривая", hilbertCurve);
     model->append("кривая Серпинского", sierpinskiCurve);
-    // о умолчанию выбрана Гильбертова кривая
-    ui->currentCurve->setCurrentIndex(0);
+    // по умолчанию выбрана Гильбертова кривая
+    ui->currentCurveComboBox->setCurrentIndex(0);
     currentCurve = hilbertCurve;
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
+
+    connect(ui->currentCurveComboBox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(changeCurrentCurve(int)));
+
     // при каждом новом элементе кривой он будет появляться на представлении
     connect(hilbertCurve, SIGNAL(newLineReady(QLine)),
             drawingField, SLOT(drawLine(QLine)));
@@ -87,4 +91,16 @@ void MainWindow::turnOnSierpinskiCurve()
                hilbertCurve, SLOT(makeCalculation()));
     disconnect(hilbertCurve, SIGNAL(endBuildCurve()),
                threadWithCurve, SLOT(quit()));
+}
+
+void MainWindow::changeCurrentCurve(int newIndex)
+{
+    if (newIndex == 1) {
+        turnOnSierpinskiCurve();
+    } else {
+        turnOnHilbertCurve();
+    }
+    currentCurve = qvariant_cast<IRecursiveCurve*>(ui->currentCurveComboBox->currentData());
+    currentCurve->changeN(ui->curveOrderValue->value());
+    currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
 }

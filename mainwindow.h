@@ -4,7 +4,7 @@
 #include "drawingfield.h"
 #include "hilbertcurve.h"
 #include "sierpinskicurve.h"
-#include "comboboxmodel.h"
+#include "recursivecurvesmodel.h"
 
 #include <QMainWindow>
 
@@ -42,5 +42,8 @@ private:
     /// то есть коннектим эту кривую и дисконнектим
     /// остальные (Гильбертову кривую)
     void turnOnSierpinskiCurve();
+
+private slots:
+    void changeCurrentCurve(int newIndex);
 };
 #endif // MAINWINDOW_H
