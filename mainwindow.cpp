@@ -53,6 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    // чтобы приложение закрывалось без исключений,
+    // надо поток плавно остановить
+    threadWithCurve->quit();
+    threadWithCurve->wait();
+
     delete ui;
 }
 
