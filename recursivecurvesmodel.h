@@ -1,15 +1,15 @@
-#ifndef COMBOBOXMODEL_H
-#define COMBOBOXMODEL_H
+#ifndef RECURSIVECURVESMODEL_H
+#define RECURSIVECURVESMODEL_H
 
 #include "irecursivecurve.h"
 
 #include <QAbstractListModel>
 #include <QModelIndex>
 
-class ComboBoxModel : public QAbstractListModel
+class RecursiveCurvesModel : public QAbstractListModel
 {
 public:
-    explicit ComboBoxModel(QObject *parent = nullptr);
+    explicit RecursiveCurvesModel(QObject *parent = nullptr);
     void append(QString key, IRecursiveCurve *value);
 
     // QAbstractItemModel interface
@@ -22,4 +22,4 @@ private:
     QList<QPair<QString, IRecursiveCurve*>> *values;
 };
 
-#endif // COMBOBOXMODEL_H
+#endif // RECURSIVECURVESMODEL_H

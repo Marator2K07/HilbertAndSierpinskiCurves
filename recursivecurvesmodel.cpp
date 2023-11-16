@@ -1,12 +1,12 @@
-#include "comboboxmodel.h"
+#include "recursivecurvesmodel.h"
 
-ComboBoxModel::ComboBoxModel(QObject *parent)
+RecursiveCurvesModel::RecursiveCurvesModel(QObject *parent)
     : QAbstractListModel{parent}
 {
     values = new QList<QPair<QString, IRecursiveCurve*>>();
 }
 
-void ComboBoxModel::append(QString key, IRecursiveCurve *value)
+void RecursiveCurvesModel::append(QString key, IRecursiveCurve *value)
 {
     int newRowIndex = this->values->count()+1;
     // прежде чем добавить элемент нужно вызвать beginInsertRows
@@ -16,12 +16,12 @@ void ComboBoxModel::append(QString key, IRecursiveCurve *value)
     endInsertRows();
 }
 
-int ComboBoxModel::rowCount(const QModelIndex &) const
+int RecursiveCurvesModel::rowCount(const QModelIndex &) const
 {
     return values->count();
 }
 
-QVariant ComboBoxModel::data(const QModelIndex &index, int role) const
+QVariant RecursiveCurvesModel::data(const QModelIndex &index, int role) const
 {
     QVariant value;
 
