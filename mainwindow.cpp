@@ -25,10 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
     currentCurve = hilbertCurve;
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
-
+    // при взаимодействии с комбоБоксом меняется текущая кривая
     connect(ui->currentCurveComboBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(changeCurrentCurve(int)));
-
     // при каждом новом элементе кривой он будет появляться на представлении
     connect(hilbertCurve, SIGNAL(newLineReady(QLine)),
             drawingField, SLOT(drawLine(QLine)));
@@ -98,12 +97,13 @@ void MainWindow::changeCurrentCurve(int newIndex)
     // если сменили вид кривой, во время расчета другой
     threadWithCurve->quit();
     threadWithCurve->wait();
-
+    // меняем сигнально-слотовые соединения
     if (newIndex == 1) {
         turnOnSierpinskiCurve();
     } else {
         turnOnHilbertCurve();
     }
+    // меняем текущую кривую
     currentCurve = qvariant_cast<IRecursiveCurve*>(ui->currentCurveComboBox->currentData());
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
