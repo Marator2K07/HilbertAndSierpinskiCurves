@@ -92,6 +92,20 @@ void MainWindow::turnOnSierpinskiCurve()
                threadWithCurve, SLOT(quit()));
 }
 
+void MainWindow::connectCurrentCurve()
+{
+    // инициализируем поток и посылаем туда нашу кривую
+    threadWithCurve = new QThread;
+    dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
+    // также соединяем связи для вычислений
+    connect(threadWithCurve, SIGNAL(started()),
+            dynamic_cast<QObject*>(currentCurve),
+            SLOT(makeCalculation()));
+    connect(dynamic_cast<QObject*>(currentCurve),
+            SIGNAL(endBuildCurve()),
+            threadWithCurve, SLOT(quit()));
+}
+
 void MainWindow::changeCurrentCurve(int newIndex)
 {
     // если сменили вид кривой, во время расчета другой
@@ -108,3 +122,4 @@ void MainWindow::changeCurrentCurve(int newIndex)
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
 }
+

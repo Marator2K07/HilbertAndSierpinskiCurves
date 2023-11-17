@@ -42,8 +42,14 @@ private:
     /// то есть коннектим эту кривую и дисконнектим
     /// остальные (Гильбертову кривую)
     void turnOnSierpinskiCurve();
+    ///
+    /// \brief connectCurrentCurve
+    /// создается новый поток, в который идет текущая кривая
+    /// с инициализацией сигнально-слотовых соединений для расчетов
+    void connectCurrentCurve();
 
 private slots:
     void changeCurrentCurve(int newIndex);
+
 };
 #endif // MAINWINDOW_H
