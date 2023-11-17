@@ -57,34 +57,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::turnOnHilbertCurve()
-{
-    // включаем Гильбертову кривую в вычисления
-    connect(threadWithCurve, SIGNAL(started()),
-            hilbertCurve, SLOT(makeCalculation()));
-    connect(hilbertCurve, SIGNAL(endBuildCurve()),
-            threadWithCurve, SLOT(quit()));
-    // выключаем кривую Серпинского из вычислений
-    disconnect(threadWithCurve, SIGNAL(started()),
-               sierpinskiCurve, SLOT(makeCalculation()));
-    disconnect(sierpinskiCurve, SIGNAL(endBuildCurve()),
-               threadWithCurve, SLOT(quit()));
-}
-
-void MainWindow::turnOnSierpinskiCurve()
-{
-    // включаем кривую Серпинского в вычисления
-    connect(threadWithCurve, SIGNAL(started()),
-            sierpinskiCurve, SLOT(makeCalculation()));
-    connect(sierpinskiCurve, SIGNAL(endBuildCurve()),
-            threadWithCurve, SLOT(quit()));
-    // выключаем Гильбертову кривую из вычислений
-    disconnect(threadWithCurve, SIGNAL(started()),
-               hilbertCurve, SLOT(makeCalculation()));
-    disconnect(hilbertCurve, SIGNAL(endBuildCurve()),
-               threadWithCurve, SLOT(quit()));
-}
-
 void MainWindow::newCalculationCurrentCurve()
 {
     // инициализируем поток и посылаем туда нашу кривую
