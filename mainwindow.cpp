@@ -61,7 +61,10 @@ void MainWindow::newCalculationCurrentCurve()
 {
     // инициализируем поток и посылаем туда нашу кривую
     threadWithCurve = new QThread;
-    dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
+    if (dynamic_cast<QObject*>(currentCurve)->
+        thread() != qApp->thread()) {
+        dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
+    }
     // также соединяем связи для вычислений
     connect(threadWithCurve, SIGNAL(started()),
             dynamic_cast<QObject*>(currentCurve),
