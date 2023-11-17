@@ -95,6 +95,10 @@ void MainWindow::turnOnSierpinskiCurve()
 
 void MainWindow::changeCurrentCurve(int newIndex)
 {
+    // если сменили вид кривой, во время расчета другой
+    threadWithCurve->quit();
+    threadWithCurve->wait();
+
     if (newIndex == 1) {
         turnOnSierpinskiCurve();
     } else {
