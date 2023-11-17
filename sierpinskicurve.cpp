@@ -28,7 +28,7 @@ void SierpinskiCurve::makeCalculation()
     nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
     lines.append(QLineF(currentPos, nextPos));
     emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-    thread()->sleep(pause); // есть задержка для наглядности
+    thread()->msleep(pause); // есть задержка для наглядности
 
     typeB(n);
     // запоминаем линию по диагонали вниз и влево 🡧
@@ -37,7 +37,7 @@ void SierpinskiCurve::makeCalculation()
     nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
     lines.append(QLineF(currentPos, nextPos));
     emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-    thread()->sleep(pause); // есть задержка для наглядности
+    thread()->msleep(pause); // есть задержка для наглядности
 
     typeC(n);
     // запоминаем линию по диагонали вверх и влево 🡤
@@ -46,7 +46,7 @@ void SierpinskiCurve::makeCalculation()
     nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
     lines.append(QLineF(currentPos, nextPos));
     emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-    thread()->sleep(pause); // есть задержка для наглядности
+    thread()->msleep(pause); // есть задержка для наглядности
 
     typeD(n);
     // запоминаем линию по диагонали вверх и вправо 🡥
@@ -55,7 +55,7 @@ void SierpinskiCurve::makeCalculation()
     nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
     lines.append(QLineF(currentPos, nextPos));
     emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-    thread()->sleep(pause); // есть задержка для наглядности
+    thread()->msleep(pause); // есть задержка для наглядности
 
     // даем сигнал потоку, что можно заканчивать
     emit endBuildCurve();
@@ -81,14 +81,14 @@ void SierpinskiCurve::typeA(short n)
         nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeB(n-1); // возможен переход в тип В
         // запоминаем линию по горизонтали вправо ->
         currentPos = nextPos;
         nextPos.setX(nextPos.x() + lineLenght * 2);
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeD(n-1); // возможен переход в тип D
         // запоминаем линию по диагонали вправо и вверх 🡥
         currentPos = nextPos;
@@ -96,7 +96,7 @@ void SierpinskiCurve::typeA(short n)
         nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeA(n-1); // возможен переход в тип А
     }
 }
@@ -111,14 +111,14 @@ void SierpinskiCurve::typeB(short n)
         nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeC(n-1); // возможен переход в тип C
         // запоминаем линию по вертикали вниз ↓
         currentPos = nextPos;
         nextPos.setY(nextPos.y() + lineLenght * 2);
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeA(n-1); // возможен переход в тип A
         // запоминаем линию по диагонали вниз и вправо 🡦
         currentPos = nextPos;
@@ -126,7 +126,7 @@ void SierpinskiCurve::typeB(short n)
         nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeB(n-1); // возможен переход в тип B
     }
 }
@@ -141,14 +141,14 @@ void SierpinskiCurve::typeC(short n)
         nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeD(n-1); // возможен переход в тип D
         // запоминаем линию по горизонтали вправо ←
         currentPos = nextPos;
         nextPos.setX(nextPos.x() - lineLenght * 2);
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeB(n-1); // возможен переход в тип B
         // запоминаем линию по диагонали вниз и влево 🡧
         currentPos = nextPos;
@@ -156,7 +156,7 @@ void SierpinskiCurve::typeC(short n)
         nextPos.setY(nextPos.y() + lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeC(n-1); // возможен переход в тип С
     }
 }
@@ -171,14 +171,14 @@ void SierpinskiCurve::typeD(short n)
         nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeA(n-1); // возможен переход в тип A
         // запоминаем линию по вертикали вверх ↑
         currentPos = nextPos;
         nextPos.setY(nextPos.y() - lineLenght * 2);
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeC(n-1); // возможен переход в тип C
         // запоминаем линию по диагонали влево и вверх 🡤
         currentPos = nextPos;
@@ -186,7 +186,7 @@ void SierpinskiCurve::typeD(short n)
         nextPos.setY(nextPos.y() - lineLenght/(sqrt(2)));
         lines.append(QLineF(currentPos, nextPos));
         emit newLineFReady(lines.dequeue()); // сигнализируем о готовности рисовать
-        thread()->sleep(pause); // есть задержка для наглядности
+        thread()->msleep(pause); // есть задержка для наглядности
         typeD(n-1); // возможен переход в тип D
     }
 }
