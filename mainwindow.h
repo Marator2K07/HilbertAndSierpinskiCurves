@@ -46,7 +46,7 @@ private:
     /// \brief connectCurrentCurve
     /// создается новый поток, в который идет текущая кривая
     /// с инициализацией сигнально-слотовых соединений для расчетов
-    void connectCurrentCurve();
+    void newCalculationCurrentCurve();
 
 private slots:
     void changeCurrentCurve(int newIndex);

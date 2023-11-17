@@ -92,7 +92,7 @@ void MainWindow::turnOnSierpinskiCurve()
                threadWithCurve, SLOT(quit()));
 }
 
-void MainWindow::connectCurrentCurve()
+void MainWindow::newCalculationCurrentCurve()
 {
     // инициализируем поток и посылаем туда нашу кривую
     threadWithCurve = new QThread;
