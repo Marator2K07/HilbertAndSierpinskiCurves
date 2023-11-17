@@ -42,25 +42,18 @@ MainWindow::MainWindow(QWidget *parent)
             hilbertCurve, SLOT(changeInitialLenght(int)));
     connect(ui->initialCurveLenghtValue, SIGNAL(valueChanged(int)),
             sierpinskiCurve, SLOT(changeInitialLenght(int)));
-    // вычисление кривой происходит в отдельном потоке, причем
-    // прорисовка идет постепенно, а не сразу, по нажатию кнопки
-    threadWithCurve = new QThread(this);
-    hilbertCurve->moveToThread(threadWithCurve);
-    sierpinskiCurve->moveToThread(threadWithCurve);
-    turnOnHilbertCurve(); // теперь подключаем слоты через отдельный метод
-    connect(ui->calcCurve, SIGNAL(clicked()),
-            threadWithCurve, SLOT(start()));
-    connect(ui->calcCurve, SIGNAL(clicked()),
-            drawingField, SLOT(clean()));
+    // чтобы не было недопониманий
+    threadWithCurve = nullptr;
 }
 
 MainWindow::~MainWindow()
 {
     // чтобы приложение закрывалось без исключений,
     // надо поток плавно остановить
-    threadWithCurve->quit();
-    threadWithCurve->wait();
-
+    if (threadWithCurve != nullptr) {
+        threadWithCurve->quit();
+        threadWithCurve->wait();
+    }
     delete ui;
 }
 
@@ -96,7 +89,8 @@ void MainWindow::newCalculationCurrentCurve()
 {
     // инициализируем поток и посылаем туда нашу кривую
     threadWithCurve = new QThread;
-    dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
+    hilbertCurve->moveToThread(threadWithCurve);
+    sierpinskiCurve->moveToThread(threadWithCurve);
     // также соединяем связи для вычислений
     connect(threadWithCurve, SIGNAL(started()),
             dynamic_cast<QObject*>(currentCurve),
@@ -116,22 +110,29 @@ void MainWindow::finishCalculationCurrentCurve()
                SIGNAL(endBuildCurve()),
                threadWithCurve, SLOT(quit()));
     delete threadWithCurve; // освобождаем поле под поток
+    threadWithCurve = nullptr;
 }
 
 void MainWindow::changeCurrentCurve(int newIndex)
 {
     // если сменили вид кривой, во время расчета другой
-    threadWithCurve->quit();
-    threadWithCurve->wait();
-    // меняем сигнально-слотовые соединения
-    if (newIndex == 1) {
-        turnOnSierpinskiCurve();
-    } else {
-        turnOnHilbertCurve();
+    if (threadWithCurve != nullptr) {
+        threadWithCurve->quit();
+        threadWithCurve->wait();
     }
     // меняем текущую кривую
     currentCurve = qvariant_cast<IRecursiveCurve*>(ui->currentCurveComboBox->currentData());
     currentCurve->changeN(ui->curveOrderValue->value());
     currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
+}
+
+void MainWindow::on_calcCurve_clicked()
+{
+    newCalculationCurrentCurve();
+    drawingField->clean();
+    threadWithCurve->start();
+    threadWithCurve->quit();
+    threadWithCurve->wait();
+    finishCalculationCurrentCurve();
 }
 

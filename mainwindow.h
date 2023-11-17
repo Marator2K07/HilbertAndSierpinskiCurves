@@ -56,5 +56,6 @@ private:
 private slots:
     void changeCurrentCurve(int newIndex);
 
+    void on_calcCurve_clicked();
 };
 #endif // MAINWINDOW_H
