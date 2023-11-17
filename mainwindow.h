@@ -43,10 +43,15 @@ private:
     /// остальные (Гильбертову кривую)
     void turnOnSierpinskiCurve();
     ///
-    /// \brief connectCurrentCurve
+    /// \brief newCalculationCurrentCurve
     /// создается новый поток, в который идет текущая кривая
     /// с инициализацией сигнально-слотовых соединений для расчетов
     void newCalculationCurrentCurve();
+    ///
+    /// \brief finishCalculationCurrentCurve
+    /// после использования потока, рвем его связи и
+    /// освобождаем занятую им память
+    void finishCalculationCurrentCurve();
 
 private slots:
     void changeCurrentCurve(int newIndex);

@@ -106,6 +106,18 @@ void MainWindow::newCalculationCurrentCurve()
             threadWithCurve, SLOT(quit()));
 }
 
+void MainWindow::finishCalculationCurrentCurve()
+{
+    // после вычислений, можно освободить связи
+    disconnect(threadWithCurve, SIGNAL(started()),
+               dynamic_cast<QObject*>(currentCurve),
+               SLOT(makeCalculation()));
+    disconnect(dynamic_cast<QObject*>(currentCurve),
+               SIGNAL(endBuildCurve()),
+               threadWithCurve, SLOT(quit()));
+    delete threadWithCurve; // освобождаем поле под поток
+}
+
 void MainWindow::changeCurrentCurve(int newIndex)
 {
     // если сменили вид кривой, во время расчета другой
