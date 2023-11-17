@@ -61,8 +61,7 @@ void MainWindow::newCalculationCurrentCurve()
 {
     // инициализируем поток и посылаем туда нашу кривую
     threadWithCurve = new QThread;
-    hilbertCurve->moveToThread(threadWithCurve);
-    sierpinskiCurve->moveToThread(threadWithCurve);
+    dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
     // также соединяем связи для вычислений
     connect(threadWithCurve, SIGNAL(started()),
             dynamic_cast<QObject*>(currentCurve),
@@ -74,6 +73,8 @@ void MainWindow::newCalculationCurrentCurve()
 
 void MainWindow::finishCalculationCurrentCurve()
 {
+    // по окончанию работы двигаем использованный обьект обратно в основной поток!
+    dynamic_cast<QObject*>(currentCurve)->moveToThread(qApp->thread());
     // после вычислений, можно освободить связи
     disconnect(threadWithCurve, SIGNAL(started()),
                dynamic_cast<QObject*>(currentCurve),
