@@ -42,8 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
             hilbertCurve, SLOT(changeInitialLenght(int)));
     connect(ui->initialCurveLenghtValue, SIGNAL(valueChanged(int)),
             sierpinskiCurve, SLOT(changeInitialLenght(int)));
-    // чтобы не было недопониманий
-    threadWithCurve = nullptr;
+    // не забываем
+    threadWithCurve = new QThread;
 }
 
 MainWindow::~MainWindow()
@@ -59,25 +59,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::newCalculationCurrentCurve()
 {
-    // инициализируем поток и посылаем туда нашу кривую
-    threadWithCurve = new QThread;
-    if (dynamic_cast<QObject*>(currentCurve)->
-        thread() != qApp->thread()) {
-        dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
-    }
-    // также соединяем связи для вычислений
+    // перед вычислениями записываем важные данные кривой и отправляем в поток
+    currentCurve->changeN(ui->curveOrderValue->value());
+    currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
+    dynamic_cast<QObject*>(currentCurve)->moveToThread(threadWithCurve);
+    // также соединяем связи
     connect(threadWithCurve, SIGNAL(started()),
             dynamic_cast<QObject*>(currentCurve),
             SLOT(makeCalculation()));
     connect(dynamic_cast<QObject*>(currentCurve),
             SIGNAL(endBuildCurve()),
             threadWithCurve, SLOT(quit()));
+    connect(threadWithCurve, SIGNAL(finished()),
+            this, SLOT(finishCalculationCurrentCurve()));
 }
 
 void MainWindow::finishCalculationCurrentCurve()
 {
-    // по окончанию работы двигаем использованный обьект обратно в основной поток!
-    dynamic_cast<QObject*>(currentCurve)->moveToThread(qApp->thread());
     // после вычислений, можно освободить связи
     disconnect(threadWithCurve, SIGNAL(started()),
                dynamic_cast<QObject*>(currentCurve),
@@ -85,11 +83,11 @@ void MainWindow::finishCalculationCurrentCurve()
     disconnect(dynamic_cast<QObject*>(currentCurve),
                SIGNAL(endBuildCurve()),
                threadWithCurve, SLOT(quit()));
-    delete threadWithCurve; // освобождаем поле под поток
-    threadWithCurve = nullptr;
+    disconnect(threadWithCurve, SIGNAL(finished()),
+               this, SLOT(finishCalculationCurrentCurve()));
 }
 
-void MainWindow::changeCurrentCurve(int newIndex)
+void MainWindow::changeCurrentCurve(int)
 {
     // если сменили вид кривой, во время расчета другой
     if (threadWithCurve != nullptr) {
@@ -98,8 +96,6 @@ void MainWindow::changeCurrentCurve(int newIndex)
     }
     // меняем текущую кривую
     currentCurve = qvariant_cast<IRecursiveCurve*>(ui->currentCurveComboBox->currentData());
-    currentCurve->changeN(ui->curveOrderValue->value());
-    currentCurve->changeInitialLenght(ui->initialCurveLenghtValue->value());
 }
 
 void MainWindow::on_calcCurve_clicked()
@@ -107,8 +103,5 @@ void MainWindow::on_calcCurve_clicked()
     newCalculationCurrentCurve();
     drawingField->clean();
     threadWithCurve->start();
-    threadWithCurve->quit();
-    threadWithCurve->wait();
-    finishCalculationCurrentCurve();
 }
 
