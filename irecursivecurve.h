@@ -12,8 +12,8 @@ class IRecursiveCurve
 private:
     ///
     /// \brief moveLine
-    /// сместить составную часть кривой (прямую) на значения сдвига
-    virtual void moveLine(double xOffset, double yOffset) = 0;
+    /// сместить и сохранить составную часть кривой (прямую) на значения сдвига
+    virtual void moveAndSaveLine(double xOffset, double yOffset) = 0;
     ///
     /// \brief typeA
     /// создает рекурсивную кривую типа А
