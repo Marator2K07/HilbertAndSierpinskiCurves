@@ -31,6 +31,7 @@ private:
 
     // IRecursiveCurve interface
 private:
+    void moveAndSaveLine(double xOffset, double yOffset) override;
     ///
     /// \brief typeA
     /// создает Гильбертову кривую как на схеме и
