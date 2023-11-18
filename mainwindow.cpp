@@ -98,7 +98,7 @@ void MainWindow::changeCurrentCurve(int)
     currentCurve = qvariant_cast<IRecursiveCurve*>(ui->currentCurveComboBox->currentData());
 }
 
-void MainWindow::on_calcCurve_clicked()
+void MainWindow::onCalcCurveClicked()
 {
     newCalculationCurrentCurve();
     drawingField->clean();

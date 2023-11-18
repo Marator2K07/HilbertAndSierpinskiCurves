@@ -38,7 +38,7 @@ private:
 
 private slots:
     void changeCurrentCurve(int);
-    void on_calcCurve_clicked();
+    void onCalcCurveClicked();
     ///
     /// \brief finishCalculationCurrentCurve
     /// после использования потока, рвем его связи и
