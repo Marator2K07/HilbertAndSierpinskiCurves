@@ -34,6 +34,7 @@ private:
 
     // IRecursiveCurve interface
 private:
+    void moveAndSaveLine(double xOffset, double yOffset) override;
     ///
     /// \brief typeA
     /// создает кривую Серпинского как на схеме и

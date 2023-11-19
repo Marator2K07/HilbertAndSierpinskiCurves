@@ -71,6 +71,20 @@ void SierpinskiCurve::changeInitialLenght(int value)
     initialLenght = value;
 }
 
+void SierpinskiCurve::moveAndSaveLine(double xOffset, double yOffset)
+{
+    // сдвигаем
+    currentPos = nextPos;
+    nextPos.setX(nextPos.x() + xOffset);
+    nextPos.setY(nextPos.y() + yOffset);
+    // сохраняем
+    lines.append(QLine(currentPos, nextPos));
+    // сигналим
+    emit newLineReady(lines.dequeue());
+    // задержка
+    thread()->msleep(pause);
+}
+
 void SierpinskiCurve::typeA(short n)
 {
     if (n > 0) {
