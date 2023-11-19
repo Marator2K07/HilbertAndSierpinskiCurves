@@ -16,22 +16,22 @@ private:
     virtual void moveAndSaveLine(double xOffset, double yOffset) = 0;
     ///
     /// \brief typeA
-    /// создает рекурсивную кривую типа А
+    /// создает часть рекурсивной кривой типа А
     /// определенного порядка
     virtual void typeA(short n) = 0;
     ///
     /// \brief typeB
-    /// создает рекурсивную кривую типа B
+    /// создает часть рекурсивной кривой типа B
     /// определенного порядка
     virtual void typeB(short n) = 0;
     ///
     /// \brief typeC
-    /// создает рекурсивную кривую типа C
+    /// создает часть рекурсивной кривой типа C
     /// определенного порядка
     virtual void typeC(short n) = 0;
     ///
     /// \brief typeD
-    /// создает рекурсивную кривую типа D
+    /// создает часть рекурсивной кривой типа D
     /// определенного порядка
     virtual void typeD(short n) = 0;
 
