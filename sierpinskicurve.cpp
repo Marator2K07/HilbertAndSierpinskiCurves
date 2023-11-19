@@ -55,9 +55,9 @@ void SierpinskiCurve::moveAndSaveLine(double xOffset, double yOffset)
     nextPos.setX(nextPos.x() + xOffset);
     nextPos.setY(nextPos.y() + yOffset);
     // сохраняем
-    lines.append(QLine(currentPos, nextPos));
+    lines.append(QLineF(currentPos, nextPos));
     // сигналим
-    emit newLineReady(lines.dequeue());
+    emit newLineFReady(lines.dequeue());
     // задержка
     thread()->msleep(pause);
 }
